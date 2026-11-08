@@ -212,3 +212,7 @@ body.motion-paused .countdown>div,body.motion-paused .stairs span{opacity:1!impo
 
 #contact-phone{color:inherit;text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:3px;text-decoration-color:var(--gold)}
 #contact-row[hidden]{display:none}
+
+.venue{grid-column:1/-1;margin:0;overflow:hidden;background:var(--tile)}
+.venue img{display:block;width:100%;height:auto;aspect-ratio:1921/770;object-fit:cover}
+@media(max-width:600px){.venue img{aspect-ratio:4/3;object-position:62% center}}

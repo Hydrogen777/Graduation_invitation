@@ -2,4 +2,5 @@ image/
 .taste-skill/
 assets/*
 !assets/favicon.svg
+!assets/venue.webp
 DESIGN-REPORT.md
