@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2c75c">
+  <meta name="description" content="Hoài Minh tốt nghiệp ngày 26/11/2026. Bấm vào ngày 26 trên tờ lịch để mở thiệp nhé!">
+  <meta property="og:title" content="Thiệp mời tốt nghiệp · Hoài Minh">
+  <meta property="og:description" content="Tháng 11 có hẹn nè. Bấm vào ngày 26 để mở thiệp!">
+  <title>Thiệp mời tốt nghiệp · Hoài Minh</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="event.js" defer></script><script src="script.js" defer></script>
+</head>
+<body class="state-calendar">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="cap" viewBox="0 0 480 300">
+      <path d="M104 112v67q72 56 143 0v-67Z" class="cap-base"/>
+      <path d="m35 101 143-71 145 71-145 71Z" class="cap-top"/>
+      <path d="m35 101 143 71 145-71v12l-145 71L35 113Z" class="cap-edge"/>
+      <path d="m178 101 84 39v81" fill="none" class="cap-cord" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="178" cy="101" r="10" class="cap-cord-fill"/>
+      <path d="m253 220-9 42h36l-9-42Z" class="cap-cord-fill"/>
+    </symbol>
+  </svg>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <a class="skip" href="#main">Đến nội dung</a>
+
+  <main id="main">
+    <!-- ============ 1. TỜ LỊCH ============ -->
+    <section id="calendar-view" class="view cal" aria-labelledby="cal-title">
+      <header class="nav frame"><a class="wordmark" href="./" aria-label="Về đầu thiệp">hm.</a><button class="motion-toggle" type="button" aria-pressed="false">Dừng chuyển động</button></header>
+      <div class="cal-body frame">
+        <div class="cal-copy">
+          <h1 id="cal-title">Tháng 11 <span>có hẹn nè.</span></h1>
+          <p class="lead">Ngày 26 có cái mũ tốt nghiệp đó. Bấm vào xem thử đi!</p>
+        </div>
+        <div class="sheet-wrap">
+          <div class="sheet-under" aria-hidden="true"><b>26</b><span>Thứ Năm, tháng 11</span></div>
+          <div class="sheet" id="sheet">
+            <div class="rings" aria-hidden="true"><i></i><i></i></div>
+            <div class="sheet-head"><p id="month-title">Tháng 11</p><span id="calendar-year">2026</span></div>
+            <table class="month-grid" aria-label="Lịch tháng 11 năm 2026"><thead><tr><th scope="col"><span class="long">Thứ hai</span><span class="short" aria-hidden="true">T2</span></th><th scope="col"><span class="long">Thứ ba</span><span class="short" aria-hidden="true">T3</span></th><th scope="col"><span class="long">Thứ tư</span><span class="short" aria-hidden="true">T4</span></th><th scope="col"><span class="long">Thứ năm</span><span class="short" aria-hidden="true">T5</span></th><th scope="col"><span class="long">Thứ sáu</span><span class="short" aria-hidden="true">T6</span></th><th scope="col"><span class="long">Thứ bảy</span><span class="short" aria-hidden="true">T7</span></th><th scope="col"><span class="long">Chủ nhật</span><span class="short" aria-hidden="true">CN</span></th></tr></thead><tbody id="month-days"></tbody></table>
+            <p class="sheet-foot"><span id="date-note">Thứ Năm, 26 tháng 11, 2026</span><span id="days-left"></span></p>
+          </div>
+        </div>
+      </div>
+      <noscript><p class="noscript-note frame">Hoài Minh tốt nghiệp ngày 26/11/2026, mời bạn qua chung vui nha! Giờ và địa điểm mình sẽ báo sau. Bật JavaScript để mở thiệp nhé.</p></noscript>
+    </section>
+
+    <!-- ============ 2. THIỆP MỜI ============ -->
+    <section id="invite-view" class="view invite" hidden aria-label="Thiệp mời">
+      <section class="chapter c-navy hero-inv" aria-labelledby="title">
+        <header class="nav frame"><a class="wordmark" href="#thiep" aria-label="Về đầu thiệp">hm.</a><nav aria-label="Điều hướng"><a href="#dem-nguoc">Đếm ngược</a><a href="#thong-tin">Thông tin</a><a href="#hoi-am">Hồi âm</a></nav><button class="motion-toggle" type="button" aria-pressed="false">Dừng chuyển động</button></header>
+        <div class="hero-body frame">
+          <div class="hero-copy">
+            <p class="to rise">Gửi <strong data-guest>bạn</strong></p>
+            <h1 id="title" tabindex="-1" class="rise">Hoài Minh <span>tốt nghiệp rồi!</span></h1>
+            <p class="support rise">Thứ Năm, 26/11/2026. Qua chung vui với mình nha!</p>
+            <div class="actions rise"><a class="button" href="#hoi-am">Báo mình bạn qua nha</a></div>
+          </div>
+          <div class="hero-date" id="tilt" data-par><span class="date-disc" aria-hidden="true"><svg viewBox="0 0 120 70"><text x="60" y="62" text-anchor="middle">26</text></svg></span><button class="hero-cap toss" type="button" aria-label="Tung mũ tốt nghiệp"><svg aria-hidden="true"><use href="#cap"/></svg></button></div>
+        </div>
+      </section>
+
+      <section class="chapter c-gold" aria-labelledby="statement">
+        <div class="frame statement">
+          <h2 id="statement" class="stairs"><span data-r>Học xong rồi,</span><span data-r>ăn mừng thôi!</span></h2>
+          <div class="statement-grid">
+            <div class="statement-copy">
+              <p class="lead" data-r>Mình học xong rồi! Có bạn ở đó thì vui hơn nhiều.</p>
+              <p data-r>Mình chụp chung vài tấm hình, tám chuyện cho đã rồi ăn mừng thiệt vui nha.</p>
+              <p class="sign" data-r data-name>Hoài Minh</p>
+            </div>
+            <button class="statement-art toss" data-par type="button" aria-label="Tung mũ tốt nghiệp" data-r><svg viewBox="0 0 480 300" aria-hidden="true"><use href="#cap"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="dem-nguoc" class="chapter c-deep" aria-labelledby="cd-title">
+        <div class="frame">
+          <h2 id="cd-title" data-r>Còn mấy ngày nữa?</h2>
+          <div class="countdown" data-r role="timer" aria-live="off">
+            <div><b data-cd="d">00</b><span>ngày</span></div><div><b data-cd="h">00</b><span>giờ</span></div><div><b data-cd="m">00</b><span>phút</span></div><div><b data-cd="s">00</b><span>giây</span></div>
+          </div>
+          <p class="lead cd-note" id="cd-note" data-r>Mình chờ bạn đó!</p>
+        </div>
+      </section>
+
+      <section id="thong-tin" class="chapter c-paper" aria-labelledby="details-title">
+        <div class="frame details">
+          <h2 id="details-title" data-r>Thông tin nè.</h2>
+          <div class="details-list">
+            <dl>
+              <div data-r><dt>Ngày</dt><dd data-date>26/11/2026</dd></div>
+              <div data-r><dt>Giờ</dt><dd data-time>Mình báo sau nha</dd></div>
+              <div data-r><dt>Địa điểm</dt><dd data-venue>Mình báo sau nha</dd></div>
+              <div data-r><dt>Địa chỉ</dt><dd data-address>Mình gửi địa chỉ chính xác sau nha.</dd></div>
+              <div data-r id="contact-row" hidden><dt>Liên hệ</dt><dd><a id="contact-phone" href="#"></a></dd></div>
+            </dl>
+            <div class="actions" data-r><a id="map-link" class="button" hidden target="_blank" rel="noopener">Xem đường đi</a><button id="calendar-save" class="button" type="button">Lưu vào lịch</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hoi-am" class="chapter c-sky" aria-labelledby="rsvp-title">
+        <div class="frame rsvp">
+          <div class="rsvp-copy">
+            <h2 id="rsvp-title" data-r>Bạn qua được không?</h2>
+            <p class="lead" data-r>Ghi tên bạn rồi bấm một nút, mình biết liền.</p>
+          </div>
+          <form id="personalize" data-r>
+            <label for="guest-name">Tên của bạn</label>
+            <input id="guest-name" name="guest" maxlength="60" autocomplete="given-name" placeholder="Ví dụ: Lan">
+            <div class="rsvp-buttons"><button class="button yes" type="button" data-rsvp="yes">Mình qua nha</button><button class="button no" type="button" data-rsvp="no">Tiếc quá, mình bận rồi</button></div>
+            <div class="rsvp-links"><button class="text-link" id="copy-link" type="button">Copy link thiệp này</button><button class="text-link" id="share-link" type="button" hidden>Chia sẻ thiệp</button></div>
+            <p id="feedback" role="status">Tên chỉ hiện trên thiệp thôi, không gửi đi đâu hết.</p>
+          </form>
+        </div>
+      </section>
+
+      <footer class="chapter c-deep footer">
+        <div class="frame">
+          <p class="footer-name" data-name>Hoài Minh</p>
+          <div class="footer-row"><p>Gặp nhau ngày 26.11.2026 nha!</p></div>
+        </div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

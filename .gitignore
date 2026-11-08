@@ -1,0 +1,5 @@
+image/
+.taste-skill/
+assets/*
+!assets/favicon.svg
+DESIGN-REPORT.md

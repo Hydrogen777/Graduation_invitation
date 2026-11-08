@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Tạo link thiệp · Hoài Minh</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{background:var(--paper,#f4f7f9);color:var(--navy,#12355b);font-family:Chivo,system-ui,sans-serif;margin:0}
+    .gen{max-width:720px;margin:0 auto;padding:32px 20px 64px}
+    .gen h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:0 0 12px}
+    .gen p{margin:0 0 20px;line-height:1.5}
+    .gen textarea{width:100%;min-height:140px;padding:14px;font:inherit;border:2px solid var(--navy,#12355b);background:#fff;color:inherit;border-radius:0;box-sizing:border-box}
+    .gen button{font:inherit;font-weight:700;background:var(--gold,#f2c75c);color:var(--deep,#0b2540);border:0;padding:12px 18px;cursor:pointer;min-height:44px}
+    .gen .go{margin-top:12px}
+    .gen ul{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px}
+    .gen li{background:#e4ecf2;padding:12px 14px;display:grid;gap:8px}
+    .gen li b{font-size:1.1rem}
+    .gen li code{font-size:.85rem;word-break:break-all;opacity:.8}
+    .gen .row{display:flex;gap:8px;flex-wrap:wrap}
+    .gen .row a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;background:var(--navy,#12355b);color:#fff;text-decoration:none;font-weight:700}
+    .gen .hint{font-size:.9rem;opacity:.8}
+  </style>
+</head>
+<body>
+  <main class="gen">
+    <h1>Tạo link thiệp cho từng người.</h1>
+    <p>Gõ tên mỗi người một dòng. Mỗi người sẽ có một link riêng; khi họ mở ra sẽ thấy đúng tên mình trên thiệp.</p>
+    <label for="names"><b>Danh sách tên</b></label>
+    <textarea id="names" placeholder="Lan&#10;Anh Tuấn&#10;Cô Hạnh"></textarea>
+    <button class="go" id="go" type="button">Tạo link</button>
+    <button class="go" id="copyall" type="button" hidden>Copy tất cả</button>
+    <ul id="out" aria-live="polite"></ul>
+    <p class="hint" id="hint"></p>
+  </main>
+  <script>
+  (function () {
+    var base = location.href.replace(/tao-link\.html.*$/, '');
+    var out = document.getElementById('out'), names = document.getElementById('names'), all = document.getElementById('copyall'), hint = document.getElementById('hint');
+    if (location.protocol === 'file:') hint.textContent = 'Bạn đang mở file trên máy nên link chưa dùng được. Đăng lên GitHub Pages rồi mở trang này ở địa chỉ thật để link gửi đi được.';
+    var rows = [];
+    function copy(t, btn) {
+      var done = function () { var o = btn.textContent; btn.textContent = 'Đã copy!'; setTimeout(function () { btn.textContent = o; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () { window.prompt('Copy link:', t); });
+      else window.prompt('Copy link:', t);
+    }
+    document.getElementById('go').addEventListener('click', function () {
+      var list = names.value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+      out.innerHTML = ''; rows = [];
+      list.forEach(function (n) {
+        var url = base + 'index.html?guest=' + encodeURIComponent(n);
+        rows.push(n + ': ' + url);
+        var li = document.createElement('li');
+        var b = document.createElement('b'); b.textContent = n;
+        var c = document.createElement('code'); c.textContent = url;
+        var r = document.createElement('div'); r.className = 'row';
+        var cb = document.createElement('button'); cb.type = 'button'; cb.textContent = 'Copy link'; cb.onclick = function () { copy(url, cb); };
+        var a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Xem thử';
+        r.appendChild(cb); r.appendChild(a);
+        li.appendChild(b); li.appendChild(c); li.appendChild(r); out.appendChild(li);
+      });
+      all.hidden = !rows.length;
+    });
+    all.addEventListener('click', function () { copy(rows.join('\n'), all); });
+  })();
+  </script>
+</body>
+</html>
